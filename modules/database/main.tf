@@ -5,13 +5,13 @@ resource "random_password" "password" {
 }
 
 resource "aws_db_instance" "database" {
+  engine                 = "postgres"
+  engine_version         = "14.4"
+  instance_class         = "db.t3.medium"
   allocated_storage      = 20
-  engine                 = "postgresql"
-  engine_version         = "12.7"
-  instance_class         = "db.t2.micro"
   identifier             = "${var.project}-db-instance"
   name                   = "terraform"
-  username               = "admin"
+  username               = "phuongnv"
   password               = random_password.password.result
   db_subnet_group_name   = var.vpc.database_subnet_group
   vpc_security_group_ids = [var.sg.db]
